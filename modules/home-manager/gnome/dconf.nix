@@ -134,7 +134,7 @@ in
       startup-status = 0;
       support-notifier-showed-version = 36;
       theme = true;
-      top-panel-position = 1;
+      top-panel-position = 0;
       workspace-wrap-around = true;
     };
 
