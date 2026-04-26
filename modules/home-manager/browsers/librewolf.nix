@@ -34,11 +34,13 @@
         "browser.theme.toolbar-theme" = 0;
         "browser.uidensity" = 1;
         "browser.toolbars.bookmarks.visibility" = "newtab";
-        "privacy.resistFingerprinting" = true;
+        "privacy.resistFingerprinting" = false;
         "privacy.trackingprotection.enabled" = true;
         "network.cookie.lifetimePolicy" = 0;
         "gfx.webrender.all" = true;
         "layers.acceleration.force-enabled" = true;
+        "webgl.force-enabled" = true;
+        "webgl.disabled" = false;
         "browser.tabs.closeWindowWithLastTab" = false;
         "browser.aboutConfig.showWarning" = false;
         "browser.download.useDownloadDir" = true;
@@ -47,6 +49,9 @@
 
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         proton-pass
+        refined-github
+        stylus
+        violentmonkey
       ];
     };
   };
