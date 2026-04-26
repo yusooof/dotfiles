@@ -22,8 +22,5 @@ _:
     { allowUnfree = true; }
   '';
 
-  programs = {
-    vscode.enable = true;
-    home-manager.enable = true;
-  };
+  programs.home-manager.enable = true;
 }

@@ -99,7 +99,8 @@ in
 {
   programs.vscode = {
     enable = true;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
+    mutableExtensionsDir = false;
+    extensions = with pkgs.vscode-extensions; [
       # Nix
       jnoortheen.nix-ide
       mkhl.direnv
