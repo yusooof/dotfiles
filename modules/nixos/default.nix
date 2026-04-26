@@ -14,5 +14,6 @@ _:
     ./flatpak.nix
     ./vpn.nix
     ./nix-ld.nix
+    ./gaming.nix
   ];
 }
