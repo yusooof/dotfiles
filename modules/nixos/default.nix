@@ -13,5 +13,6 @@ _:
     ./fonts.nix
     ./flatpak.nix
     ./vpn.nix
+    ./nix-ld.nix
   ];
 }
