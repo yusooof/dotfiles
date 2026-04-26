@@ -12,5 +12,6 @@ _:
     ./nvidia.nix
     ./fonts.nix
     ./flatpak.nix
+    ./vpn.nix
   ];
 }
