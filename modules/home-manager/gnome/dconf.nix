@@ -65,6 +65,7 @@ in
       dock-fixed = false;
       autohide = true;
       intellihide = true;
+      intellihide-mode = "ALL_WINDOWS";
       dash-max-icon-size = 48;
       transparency-mode = "DEFAULT";
       background-opacity = 0.35;
