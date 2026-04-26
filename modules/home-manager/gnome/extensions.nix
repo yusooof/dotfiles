@@ -9,5 +9,5 @@
     appindicator
     just-perfection
     vitals
-  ];
+  ] ++ [ pkgs.phinger-cursors ];
 }

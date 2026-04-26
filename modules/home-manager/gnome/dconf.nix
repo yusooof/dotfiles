@@ -98,6 +98,8 @@ in
       clock-show-weekday = true;
       clock-show-seconds = false;
       show-battery-percentage = true;
+      cursor-theme = "phinger-cursors-dark";
+      cursor-size = 24;
     };
 
     "org/gnome/desktop/background" = {
