@@ -14,6 +14,12 @@
       # Git
       eamodio.gitlens
       mhutchie.git-graph
+      (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+        name = "vscode-conventional-commits";
+        publisher = "vivaxy";
+        version = "1.27.0";
+        sha256 = "sha256-yZ3pVBJGcwSNlN7LvFppAuNomxlQDTvA42kUpsZLj7Y=";
+      })
 
       # Error display
       usernamehw.errorlens
@@ -55,6 +61,9 @@
     ];
 
     profiles.default.userSettings = {
+      # Immutable Settings Protection
+      "files.readonlyInclude" = { "**/settings.json" = true; };
+
       # Nix LSP
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "nixd";

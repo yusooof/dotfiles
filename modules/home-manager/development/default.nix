@@ -1,16 +1,7 @@
-{ pkgs, ... }:
-
-{
+_: {
   imports = [
     ./git.nix
+    ./tools.nix
     ./vscode.nix
-  ];
-
-  home.packages = with pkgs; [
-    nixd
-    nixpkgs-fmt
-    python3
-    claude-code
-    antigravity
   ];
 }
