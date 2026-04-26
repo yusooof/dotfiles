@@ -21,7 +21,7 @@ in
         "just-perfection-desktop@just-perfection"
         "copyous@boerdereinar.dev"
         "search-light@icedman.github.com"
-        "rounded-window-corners@yilozt"
+        "rounded-window-corners@fxgn"
       ];
       favorite-apps = [
         "librewolf.desktop"
@@ -90,7 +90,7 @@ in
     };
 
     "org/gnome/shell/extensions/dash-to-dock" = {
-      dock-position = "LEFT";
+      dock-position = "BOTTOM";
       dock-fixed = false;
       autohide = true;
       intellihide = true;
@@ -116,7 +116,7 @@ in
       isolate-workspaces = false;
       multi-monitor = false;
       preferred-monitor = -2;
-      preferred-monitor-by-connector = "DP-1";
+      preferred-monitor-by-connector = "DP-3";
       show-show-apps-button = false;
     };
 
@@ -170,6 +170,11 @@ in
       theme = "custom";
     };
 
+    "org/gnome/shell/extensions/rounded-window-corners-reborn" = {
+      settings-version = mkUint32 7;
+      skip-libadwaita-app = false;
+    };
+
     "org/gnome/shell/extensions/search-light" = {
       animation-speed = 100.0;
       background-color = mkTuple [ 0.046666666865348816 0.037799999117851257 0.037799999117851257 0.68666666746139526 ];
@@ -190,6 +195,7 @@ in
     };
 
     "org/gnome/desktop/interface" = {
+      accent-color = "slate";
       color-scheme = "prefer-dark";
       enable-hot-corners = false;
       clock-show-weekday = true;
@@ -200,6 +206,7 @@ in
     };
 
     "org/gnome/desktop/background" = {
+      picture-options = "zoom";
       picture-uri = "file:///home/user/.background-image";
       picture-uri-dark = "file:///home/user/.background-image";
     };
