@@ -2,7 +2,6 @@
 
 {
   home.packages = with pkgs.gnomeExtensions; [
-    all-in-one-clipboard
     blur-my-shell
     user-themes
     dash-to-dock
@@ -10,5 +9,6 @@
     just-perfection
     copyous
     search-light
+    rounded-window-corners-reborn
   ] ++ [ pkgs.phinger-cursors ];
 }

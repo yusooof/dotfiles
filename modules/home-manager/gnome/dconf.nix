@@ -14,7 +14,6 @@ in
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
-        "all-in-one-clipboard@NiffirgkcaJ.github.com"
         "blur-my-shell@aunetx"
         "user-theme@gnome-shell-extensions.gcampax.github.com"
         "dash-to-dock@micxgx.gmail.com"
@@ -22,6 +21,7 @@ in
         "just-perfection-desktop@just-perfection"
         "copyous@boerdereinar.dev"
         "search-light@icedman.github.com"
+        "rounded-window-corners@yilozt"
       ];
       favorite-apps = [
         "librewolf.desktop"
@@ -33,11 +33,33 @@ in
       ];
     };
 
-    "org/gnome/shell/extensions/all-in-one-clipboard" = {
-      enable-recents-tab = true;
+    "org/gnome/shell/extensions/blur-my-shell" = {
+      brightness = 0.6;
+      sigma = 30;
     };
 
-    "org/gnome/shell/extensions/blur-my-shell" = {
+    "org/gnome/shell/extensions/blur-my-shell/appfolder" = {
+      brightness = 0.6;
+      sigma = 26;
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/coverflow-alt-tab" = {
+      pipeline = "pipeline_default";
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/hidetopbar" = {
+      compatibility = false;
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/lockscreen" = {
+      pipeline = "pipeline_default";
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/screenshot" = {
+      pipeline = "pipeline_default";
+    };
+
+    "org/gnome/shell/extensions/blur-my-shell/window-list" = {
       brightness = 0.6;
       sigma = 30;
     };
@@ -45,13 +67,16 @@ in
     "org/gnome/shell/extensions/blur-my-shell/overview" = {
       blur = true;
       customize = false;
+      pipeline = "pipeline_default_rounded";
     };
 
     "org/gnome/shell/extensions/blur-my-shell/panel" = {
       blur = true;
-      brightness = 0.6;
-      sigma = 30;
+      brightness = 0.93;
+      sigma = 19;
       override-background = true;
+      static-blur = false;
+      pipeline = "pipeline_default";
     };
 
     "org/gnome/shell/extensions/blur-my-shell/dash-to-dock" = {
@@ -59,6 +84,9 @@ in
       brightness = 0.6;
       sigma = 30;
       override-background = true;
+      static-blur = true;
+      style-dash-to-dock = 0;
+      pipeline = "pipeline_default_rounded";
     };
 
     "org/gnome/shell/extensions/dash-to-dock" = {
@@ -67,16 +95,38 @@ in
       autohide = true;
       intellihide = true;
       intellihide-mode = "ALL_WINDOWS";
-      dash-max-icon-size = 48;
+      dash-max-icon-size = 40;
       transparency-mode = "DEFAULT";
+      background-color = "rgb(54,54,58)";
       background-opacity = 0.35;
+      custom-background-color = false;
       running-indicator-style = "DOTS";
-      custom-theme-shrink = true;
+      custom-theme-shrink = false;
+      apply-custom-theme = false;
       show-trash = false;
       show-mounts = false;
       click-action = "minimize";
       scroll-action = "cycle-windows";
       animate-show-apps = true;
+      always-center-icons = false;
+      extend-height = false;
+      height-fraction = 0.59;
+      icon-size-fixed = true;
+      isolate-monitors = false;
+      isolate-workspaces = false;
+      multi-monitor = false;
+      preferred-monitor = -2;
+      preferred-monitor-by-connector = "DP-1";
+      show-show-apps-button = false;
+    };
+
+    "org/gnome/shell/extensions/appindicator" = {
+      icon-brightness = 0.0;
+      icon-contrast = 0.0;
+      icon-opacity = 100;
+      icon-saturation = 0.0;
+      icon-size = 0;
+      tray-pos = "center";
     };
 
     "org/gnome/shell/extensions/just-perfection" = {
@@ -135,7 +185,7 @@ in
       scale-height = 0.1;
       scale-width = 0.13;
       shortcut-search = [ "<Super>x" ];
-      show-panel-icon = true;
+      show-panel-icon = false;
       window-effect = 0;
     };
 
@@ -174,6 +224,10 @@ in
 
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-schedule-automatic = false;
+    };
+
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      volume-step = 5;
     };
 
     "com/raggesilver/BlackBox" = {
