@@ -36,12 +36,12 @@ let
     "editor.suggest.preview" = true;
 
     # Language-specific formatters
-    "[javascript]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-    "[javascriptreact]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-    "[typescript]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-    "[typescriptreact]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-    "[json]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-    "[jsonc]" = { "editor.defaultFormatter" = "biomejs.biome"; };
+    "[javascript]" = { "editor.defaultFormatter" = "oxc.oxc-vscode"; };
+    "[javascriptreact]" = { "editor.defaultFormatter" = "oxc.oxc-vscode"; };
+    "[typescript]" = { "editor.defaultFormatter" = "oxc.oxc-vscode"; };
+    "[typescriptreact]" = { "editor.defaultFormatter" = "oxc.oxc-vscode"; };
+    "[json]" = { "editor.defaultFormatter" = "oxc.oxc-vscode"; };
+    "[jsonc]" = { "editor.defaultFormatter" = "oxc.oxc-vscode"; };
     "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
 
     # Workbench
@@ -123,7 +123,12 @@ in
       # Formatting & Linting
       biomejs.biome
       esbenp.prettier-vscode
-      dbaeumer.vscode-eslint
+      (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+        name = "oxc-vscode";
+        publisher = "oxc";
+        version = "1.53.0";
+        sha256 = "sha256-CqEMaXg7JUzp1BMLCIyXKhqGCJbMbfPyzGFWKrVEhH4=";
+      })
 
       # Language support
       bradlc.vscode-tailwindcss

@@ -5,7 +5,6 @@
     enable = true;
 
     extensions = [
-      "biome"
       "nix"
       "toml"
       "html"
@@ -15,8 +14,9 @@
     ];
 
     extraPackages = with pkgs; [
+      oxlint-latest
+      oxfmt
       biome
-      nodePackages.prettier
     ];
 
     userSettings = {
@@ -78,58 +78,80 @@
 
       languages = {
         JavaScript = {
+          language_servers = [ "biome" "..." ];
           formatter = {
             external = {
-              command = "biome";
-              arguments = [ "format" "--stdin-file-path" "{buffer_path}" ];
+              command = "oxfmt";
+              arguments = [ "--stdin-filepath" "{buffer_path}" ];
             };
-          };
-          code_actions_on_save = {
-            "source.fixAll.biome" = true;
-            "source.organizeImports.biome" = true;
           };
         };
         TypeScript = {
+          language_servers = [ "biome" "..." ];
           formatter = {
             external = {
-              command = "biome";
-              arguments = [ "format" "--stdin-file-path" "{buffer_path}" ];
+              command = "oxfmt";
+              arguments = [ "--stdin-filepath" "{buffer_path}" ];
             };
-          };
-          code_actions_on_save = {
-            "source.fixAll.biome" = true;
-            "source.organizeImports.biome" = true;
           };
         };
         "JavaScript React" = {
+          language_servers = [ "biome" "..." ];
           formatter = {
             external = {
-              command = "biome";
-              arguments = [ "format" "--stdin-file-path" "{buffer_path}" ];
+              command = "oxfmt";
+              arguments = [ "--stdin-filepath" "{buffer_path}" ];
             };
-          };
-          code_actions_on_save = {
-            "source.fixAll.biome" = true;
-            "source.organizeImports.biome" = true;
           };
         };
         "TypeScript TSX" = {
+          language_servers = [ "biome" "..." ];
           formatter = {
             external = {
-              command = "biome";
-              arguments = [ "format" "--stdin-file-path" "{buffer_path}" ];
+              command = "oxfmt";
+              arguments = [ "--stdin-filepath" "{buffer_path}" ];
             };
-          };
-          code_actions_on_save = {
-            "source.fixAll.biome" = true;
-            "source.organizeImports.biome" = true;
           };
         };
         JSON = {
+          language_servers = [ "biome" "..." ];
           formatter = {
             external = {
-              command = "biome";
-              arguments = [ "format" "--stdin-file-path" "{buffer_path}" ];
+              command = "oxfmt";
+              arguments = [ "--stdin-filepath" "{buffer_path}" ];
+            };
+          };
+        };
+        HTML = {
+          formatter = {
+            external = {
+              command = "oxfmt";
+              arguments = [ "--stdin-filepath" "{buffer_path}" ];
+            };
+          };
+        };
+        CSS = {
+          formatter = {
+            external = {
+              command = "oxfmt";
+              arguments = [ "--stdin-filepath" "{buffer_path}" ];
+            };
+          };
+        };
+        Markdown = {
+          soft_wrap = "editor_width";
+          formatter = {
+            external = {
+              command = "oxfmt";
+              arguments = [ "--stdin-filepath" "{buffer_path}" ];
+            };
+          };
+        };
+        YAML = {
+          formatter = {
+            external = {
+              command = "oxfmt";
+              arguments = [ "--stdin-filepath" "{buffer_path}" ];
             };
           };
         };
@@ -139,39 +161,6 @@
         };
         Rust = {
           formatter = "language_server";
-        };
-        HTML = {
-          formatter = {
-            external = {
-              command = "prettier";
-              arguments = [ "--stdin-filepath" "{buffer_path}" ];
-            };
-          };
-        };
-        CSS = {
-          formatter = {
-            external = {
-              command = "prettier";
-              arguments = [ "--stdin-filepath" "{buffer_path}" ];
-            };
-          };
-        };
-        Markdown = {
-          soft_wrap = "editor_width";
-          formatter = {
-            external = {
-              command = "prettier";
-              arguments = [ "--stdin-filepath" "{buffer_path}" ];
-            };
-          };
-        };
-        YAML = {
-          formatter = {
-            external = {
-              command = "prettier";
-              arguments = [ "--stdin-filepath" "{buffer_path}" ];
-            };
-          };
         };
         TOML = {
           formatter = "language_server";
@@ -184,6 +173,7 @@
             formatting.command = [ "nixpkgs-fmt" ];
           };
         };
+        biome = {};
       };
     };
   };

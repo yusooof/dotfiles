@@ -3,7 +3,7 @@
 
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes";
+    matchBlocks."*".addKeysToAgent = "yes";
     matchBlocks."github.com" = {
       hostname = "github.com";
       user = "git";

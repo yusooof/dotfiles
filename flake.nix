@@ -29,6 +29,9 @@
           nixpkgs.overlays = [
             claude-code.overlays.default
             nur.overlays.default
+            (final: _: {
+              oxlint-latest = final.callPackage ./pkgs/oxlint-latest { };
+            })
           ];
         }
 
@@ -38,7 +41,7 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             users.user = import ./modules/home-manager;
-            sharedModules = [ nix-index-database.hmModules.nix-index ];
+            sharedModules = [ nix-index-database.homeModules.nix-index ];
           };
         }
       ];

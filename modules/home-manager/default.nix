@@ -16,8 +16,6 @@ _:
     stateVersion = "25.11";
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   # Write ~/.config/nixpkgs/config.nix so ad-hoc nix commands
   # (nix run, nix shell, etc.) allow unfree packages without env vars
   xdg.configFile."nixpkgs/config.nix".text = ''
