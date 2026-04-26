@@ -8,6 +8,7 @@
     dash-to-dock
     appindicator
     just-perfection
-    vitals
+    copyous
+    search-light
   ] ++ [ pkgs.phinger-cursors ];
 }

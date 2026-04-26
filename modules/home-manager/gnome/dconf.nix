@@ -20,7 +20,8 @@ in
         "dash-to-dock@micxgx.gmail.com"
         "appindicatorsupport@rgcjonas.gmail.com"
         "just-perfection-desktop@just-perfection"
-        "Vitals@CoreCoding.com"
+        "copyous@boerdereinar.dev"
+        "search-light@icedman.github.com"
       ];
       favorite-apps = [
         "librewolf.desktop"
@@ -87,14 +88,55 @@ in
       workspace-wrap-around = true;
     };
 
-    "org/gnome/shell/extensions/vitals" = {
-      show-battery = true;
-      hot-sensors = [
-        "_memory_usage_"
-        "_processor_usage_"
-        "_temperature_"
-      ];
-      position-in-panel = 2;
+    "org/gnome/shell/extensions/copyous" = {
+      auto-hide-search = false;
+      clipboard-orientation = "horizontal";
+      clipboard-position-horizontal = "fill";
+      clipboard-position-vertical = "top";
+      clipboard-size = 500;
+      database-backend = "json";
+      disable-hljs-dialog = false;
+      dynamic-item-height = false;
+      header-controls-visibility = "visible";
+      history-length = 35;
+      incognito = false;
+      item-height = 170;
+      item-width = 250;
+      open-clipboard-dialog-shortcut = [ "<Super>v" ];
+      show-at-pointer = false;
+      show-header = true;
+    };
+
+    "org/gnome/shell/extensions/copyous/file-item" = {
+      file-preview-visibility = "file-preview-or-file-info";
+    };
+
+    "org/gnome/shell/extensions/copyous/link-item" = {
+      link-preview-orientation = "vertical";
+    };
+
+    "org/gnome/shell/extensions/copyous/theme" = {
+      custom-bg-color = "";
+      theme = "custom";
+    };
+
+    "org/gnome/shell/extensions/search-light" = {
+      animation-speed = 100.0;
+      background-color = mkTuple [ 0.046666666865348816 0.037799999117851257 0.037799999117851257 0.68666666746139526 ];
+      blur-background = true;
+      blur-brightness = 0.6;
+      blur-sigma = 30.0;
+      border-radius = 3.1643835616438354;
+      border-thickness = 0;
+      entry-font-size = 1;
+      monitor-count = 2;
+      popup-at-cursor-monitor = true;
+      preferred-monitor = 0;
+      scale-height = 0.1;
+      scale-width = 0.13;
+      shortcut-search = [ "<Super>x" ];
+      show-panel-icon = true;
+      window-effect = 0;
     };
 
     "org/gnome/desktop/interface" = {
