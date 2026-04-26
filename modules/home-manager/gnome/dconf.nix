@@ -126,7 +126,7 @@ in
       icon-opacity = 100;
       icon-saturation = 0.0;
       icon-size = 0;
-      tray-pos = "center";
+      tray-pos = "left";
     };
 
     "org/gnome/shell/extensions/just-perfection" = {

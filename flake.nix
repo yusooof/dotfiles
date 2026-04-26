@@ -17,13 +17,20 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    minegrub-world-sel-theme = {
+      url = "github:Lxtharia/minegrub-world-sel-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, claude-code, nur, nix-index-database, ... }: {
+  outputs = { nixpkgs, home-manager, claude-code, nur, nix-index-database, ... }@inputs: {
     nixosConfigurations.computer = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         ./hosts/computer
+        inputs.minegrub-world-sel-theme.nixosModules.default
 
         {
           nixpkgs.overlays = [
