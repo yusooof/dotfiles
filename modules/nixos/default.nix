@@ -15,5 +15,6 @@ _:
     ./vpn.nix
     ./nix-ld.nix
     ./gaming.nix
+    ./virtualisation.nix
   ];
 }
