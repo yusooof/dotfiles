@@ -7,6 +7,10 @@ in
   home.file.".background-image".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/assets/wallpaper.png";
 
   dconf.settings = {
+    "org/gnome/shell/keybindings" = {
+      show-screenshot-ui = [ "<Shift><Super>s" ];
+    };
+
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
