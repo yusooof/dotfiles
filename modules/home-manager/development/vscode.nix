@@ -1,5 +1,101 @@
 { pkgs, lib, ... }:
 
+let
+  settings = {
+    # Nix LSP
+    "nix.enableLanguageServer" = true;
+    "nix.serverPath" = "nixd";
+    "nix.serverSettings"."nixd"."formatting"."command" = [ "nixpkgs-fmt" ];
+
+    # Theme
+    "workbench.colorTheme" = "Dark Modern";
+    "workbench.iconTheme" = "material-icon-theme";
+
+    # Editor — appearance
+    "editor.fontFamily" = "'JetBrains Mono', monospace";
+    "editor.fontSize" = 14;
+    "editor.fontLigatures" = true;
+    "editor.lineHeight" = 1.6;
+    "editor.minimap.enabled" = false;
+    "editor.renderWhitespace" = "boundary";
+    "editor.smoothScrolling" = true;
+    "editor.cursorBlinking" = "smooth";
+    "editor.cursorSmoothCaretAnimation" = "on";
+    "editor.bracketPairColorization.enabled" = true;
+    "editor.guides.bracketPairs" = "active";
+    "editor.stickyScroll.enabled" = true;
+    "editor.inlayHints.enabled" = "offUnlessPressed";
+
+    # Editor — behaviour
+    "editor.formatOnSave" = true;
+    "editor.defaultFormatter" = "esbenp.prettier-vscode";
+    "editor.tabSize" = 2;
+    "editor.insertSpaces" = true;
+    "editor.wordWrap" = "off";
+    "editor.inlineSuggest.enabled" = true;
+    "editor.suggest.preview" = true;
+
+    # Language-specific formatters
+    "[javascript]" = { "editor.defaultFormatter" = "biomejs.biome"; };
+    "[javascriptreact]" = { "editor.defaultFormatter" = "biomejs.biome"; };
+    "[typescript]" = { "editor.defaultFormatter" = "biomejs.biome"; };
+    "[typescriptreact]" = { "editor.defaultFormatter" = "biomejs.biome"; };
+    "[json]" = { "editor.defaultFormatter" = "biomejs.biome"; };
+    "[jsonc]" = { "editor.defaultFormatter" = "biomejs.biome"; };
+    "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
+
+    # Workbench
+    "workbench.startupEditor" = "none";
+    "workbench.tree.indent" = 16;
+    "workbench.smoothScrolling" = true;
+    "workbench.list.smoothScrolling" = true;
+    "workbench.editor.labelFormat" = "short";
+
+    # Files
+    "files.autoSave" = "onFocusChange";
+    "files.trimTrailingWhitespace" = true;
+    "files.insertFinalNewline" = true;
+    "files.trimFinalNewlines" = true;
+
+    # Terminal
+    "terminal.integrated.fontSize" = 13;
+    "terminal.integrated.smoothScrolling" = true;
+    "terminal.integrated.cursorBlinking" = true;
+
+    # Error Lens
+    "errorLens.enabledDiagnosticLevels" = [ "error" "warning" "info" ];
+    "errorLens.gutterIconsEnabled" = true;
+    "errorLens.delay" = 200;
+
+    # GitLens
+    "gitlens.codeLens.enabled" = false;
+    "gitlens.currentLine.enabled" = true;
+    "gitlens.hovers.currentLine.over" = "line";
+
+    # Git Graph
+    "git-graph.date.format" = "Relative";
+
+    # Indent Rainbow
+    "indentRainbow.indicatorStyle" = "light";
+
+    # Todo Tree
+    "todo-tree.general.tags" = [ "TODO" "FIXME" "HACK" "NOTE" "BUG" ];
+    "todo-tree.highlights.defaultHighlight" = {
+      "icon" = "alert";
+      "type" = "text";
+    };
+
+    # Explorer
+    "explorer.confirmDelete" = false;
+    "explorer.confirmDragAndDrop" = false;
+
+    # Telemetry
+    "telemetry.telemetryLevel" = "off";
+  };
+
+  settingsFile = pkgs.writeText "vscode-settings.json" (builtins.toJSON settings);
+in
+
 {
   programs.vscode = {
     enable = true;
@@ -59,100 +155,11 @@
         sha256 = "sha256-TfVradC9ZjfLBp8QvZ0AptCS9j2ogzSlsRXxksp+N9I=";
       })
     ];
-
-    profiles.default.userSettings = {
-      # Immutable Settings Protection
-      "files.readonlyInclude" = { "**/settings.json" = true; };
-
-      # Nix LSP
-      "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "nixd";
-      "nix.serverSettings"."nixd"."formatting"."command" = [ "nixpkgs-fmt" ];
-
-      # Theme
-      "workbench.colorTheme" = "Dark Modern";
-      "workbench.iconTheme" = "material-icon-theme";
-
-      # Editor — appearance
-      "editor.fontFamily" = "'JetBrains Mono', monospace";
-      "editor.fontSize" = 14;
-      "editor.fontLigatures" = true;
-      "editor.lineHeight" = 1.6;
-      "editor.minimap.enabled" = false;
-      "editor.renderWhitespace" = "boundary";
-      "editor.smoothScrolling" = true;
-      "editor.cursorBlinking" = "smooth";
-      "editor.cursorSmoothCaretAnimation" = "on";
-      "editor.bracketPairColorization.enabled" = true;
-      "editor.guides.bracketPairs" = "active";
-      "editor.stickyScroll.enabled" = true;
-      "editor.inlayHints.enabled" = "offUnlessPressed";
-
-      # Editor — behaviour
-      "editor.formatOnSave" = true;
-      "editor.defaultFormatter" = "esbenp.prettier-vscode";
-      "editor.tabSize" = 2;
-      "editor.insertSpaces" = true;
-      "editor.wordWrap" = "off";
-      "editor.inlineSuggest.enabled" = true;
-      "editor.suggest.preview" = true;
-
-      # Language-specific formatters
-      "[javascript]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-      "[javascriptreact]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-      "[typescript]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-      "[typescriptreact]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-      "[json]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-      "[jsonc]" = { "editor.defaultFormatter" = "biomejs.biome"; };
-      "[nix]" = { "editor.defaultFormatter" = "jnoortheen.nix-ide"; };
-
-      # Workbench
-      "workbench.startupEditor" = "none";
-      "workbench.tree.indent" = 16;
-      "workbench.smoothScrolling" = true;
-      "workbench.list.smoothScrolling" = true;
-      "workbench.editor.labelFormat" = "short";
-
-      # Files
-      "files.autoSave" = "onFocusChange";
-      "files.trimTrailingWhitespace" = true;
-      "files.insertFinalNewline" = true;
-      "files.trimFinalNewlines" = true;
-
-      # Terminal
-      "terminal.integrated.fontSize" = 13;
-      "terminal.integrated.smoothScrolling" = true;
-      "terminal.integrated.cursorBlinking" = true;
-
-      # Error Lens
-      "errorLens.enabledDiagnosticLevels" = [ "error" "warning" "info" ];
-      "errorLens.gutterIconsEnabled" = true;
-      "errorLens.delay" = 200;
-
-      # GitLens
-      "gitlens.codeLens.enabled" = false;
-      "gitlens.currentLine.enabled" = true;
-      "gitlens.hovers.currentLine.over" = "line";
-
-      # Git Graph
-      "git-graph.date.format" = "Relative";
-
-      # Indent Rainbow
-      "indentRainbow.indicatorStyle" = "light";
-
-      # Todo Tree
-      "todo-tree.general.tags" = [ "TODO" "FIXME" "HACK" "NOTE" "BUG" ];
-      "todo-tree.highlights.defaultHighlight" = {
-        "icon" = "alert";
-        "type" = "text";
-      };
-
-      # Explorer
-      "explorer.confirmDelete" = false;
-      "explorer.confirmDragAndDrop" = false;
-
-      # Telemetry
-      "telemetry.telemetryLevel" = "off";
-    };
   };
+
+  # Write settings as a writable file (not a store symlink) so VSCode can modify it.
+  # The file is overwritten with Nix-defined settings on every rebuild.
+  home.activation.vscodeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD install -Dm644 ${settingsFile} "$HOME/.config/Code/User/settings.json"
+  '';
 }
