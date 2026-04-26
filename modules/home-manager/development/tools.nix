@@ -9,6 +9,8 @@
     antigravity
   ];
 
+  programs.nix-index-database.comma.enable = true;
+
   programs.mise = {
     enable = true;
     enableNushellIntegration = true;

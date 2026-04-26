@@ -12,9 +12,14 @@
     claude-code.url = "github:sadjow/claude-code-nix";
 
     nur.url = "github:nix-community/NUR";
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, claude-code, nur, ... }: {
+  outputs = { nixpkgs, home-manager, claude-code, nur, nix-index-database, ... }: {
     nixosConfigurations.computer = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -33,6 +38,7 @@
             useGlobalPkgs = true;
             useUserPackages = true;
             users.user = import ./modules/home-manager;
+            sharedModules = [ nix-index-database.hmModules.nix-index ];
           };
         }
       ];
