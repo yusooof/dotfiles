@@ -70,7 +70,7 @@
       "nix.serverSettings"."nixd"."formatting"."command" = [ "nixpkgs-fmt" ];
 
       # Theme
-      "workbench.colorTheme" = "Default Dark Modern";
+      "workbench.colorTheme" = "Dark Modern";
       "workbench.iconTheme" = "material-icon-theme";
 
       # Editor — appearance

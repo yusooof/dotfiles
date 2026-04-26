@@ -57,13 +57,13 @@ in
     };
 
     "org/gnome/shell/extensions/dash-to-dock" = {
-      dock-position = "BOTTOM";
+      dock-position = "LEFT";
       dock-fixed = false;
       autohide = true;
       intellihide = true;
       dash-max-icon-size = 48;
-      transparency-mode = "DYNAMIC";
-      background-opacity = 0.5;
+      transparency-mode = "DEFAULT";
+      background-opacity = 0.35;
       running-indicator-style = "DOTS";
       custom-theme-shrink = true;
       show-trash = false;
@@ -75,8 +75,11 @@ in
 
     "org/gnome/shell/extensions/just-perfection" = {
       animation = 5;
-      workspace-wrap-around = true;
       startup-status = 0;
+      support-notifier-showed-version = 36;
+      theme = true;
+      top-panel-position = 1;
+      workspace-wrap-around = true;
     };
 
     "org/gnome/shell/extensions/vitals" = {
