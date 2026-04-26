@@ -128,11 +128,19 @@ in
     };
 
     "com/raggesilver/BlackBox" = {
-      font = "JetBrains Mono Nerd Font 13";
+      cursor-blink-mode = mkUint32 0;
+      cursor-shape = mkUint32 1;
       easy-copy-paste = true;
-      show-menu-button = false;
-      scrollback-lines = lib.hm.gvariant.mkUint32 10000;
+      font = "JetBrains Mono Nerd Font 13";
       remember-window-size = true;
+      scrollback-lines = mkUint32 10000;
+      show-menu-button = false;
+      terminal-cell-height = 1.0;
+      terminal-cell-width = 1.0;
+      terminal-padding = mkTuple [ (mkUint32 13) (mkUint32 13) (mkUint32 13) (mkUint32 13) ];
+      theme-bold-is-bright = true;
+      window-height = mkUint32 634;
+      window-width = mkUint32 1115;
     };
 
     "org/gnome/gnome-system-monitor" = {
