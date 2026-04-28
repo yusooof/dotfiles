@@ -25,6 +25,7 @@ in
       ];
       favorite-apps = [
         "librewolf.desktop"
+        "chromium-browser.desktop"
         "org.gnome.Nautilus.desktop"
         "com.raggesilver.BlackBox.desktop"
         "code.desktop"

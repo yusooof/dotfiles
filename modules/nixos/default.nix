@@ -16,5 +16,6 @@ _:
     ./nix-ld.nix
     ./gaming.nix
     ./virtualisation.nix
+    ./printing.nix
   ];
 }

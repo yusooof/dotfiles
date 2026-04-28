@@ -4,6 +4,11 @@
     nixd
     nixpkgs-fmt
 
+    # Languages
+    python3
+    gcc
+    nodejs
+
     # CLI
     claude-code
     antigravity

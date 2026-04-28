@@ -31,5 +31,6 @@
     virt-viewer
     swtpm
     virtio-win
+    gnome-boxes
   ];
 }
