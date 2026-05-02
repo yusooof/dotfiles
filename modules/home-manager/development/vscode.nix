@@ -138,6 +138,7 @@ in
       rust-lang.rust-analyzer
       ms-python.python
       ms-python.vscode-pylance
+      denoland.vscode-deno
 
       # HTML/CSS
       formulahendry.auto-rename-tag
