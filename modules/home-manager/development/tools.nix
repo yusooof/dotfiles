@@ -8,6 +8,7 @@
     python3
     gcc
     nodejs
+    qt6.qtdeclarative # provides qmlls / qmlformat
 
     # CLI
     claude-code

@@ -1,11 +1,17 @@
 { pkgs, lib, ... }:
 
 let
+  qmllsPath = "${pkgs.qt6.qtdeclarative}/bin/qmlls";
+
   settings = {
     # Nix LSP
     "nix.enableLanguageServer" = true;
     "nix.serverPath" = "nixd";
     "nix.serverSettings"."nixd"."formatting"."command" = [ "nixpkgs-fmt" ];
+
+    # Qt QML
+    "qt-qml.qmlls.customExePath" = qmllsPath;
+    "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
 
     # Theme
     "workbench.colorTheme" = "Dark Modern";
@@ -139,6 +145,14 @@ in
       ms-python.python
       ms-python.vscode-pylance
       denoland.vscode-deno
+
+      # Qt / QML
+      (pkgs.vscode-utils.extensionFromVscodeMarketplace {
+        name = "qt-qml";
+        publisher = "TheQtCompany";
+        version = "1.13.0";
+        sha256 = "sha256-WPzierXLQM+HdVb0XAx80f4Fdd34Vf7WbFzFapr5VHE=";
+      })
 
       # HTML/CSS
       formulahendry.auto-rename-tag
