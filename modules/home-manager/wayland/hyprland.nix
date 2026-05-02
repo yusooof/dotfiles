@@ -1,4 +1,8 @@
-_: {
+{ ... }:
+let
+  palette = import ./palette.nix;
+in
+{
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.variables = [ "--all" ];
@@ -10,7 +14,6 @@ _: {
       "$term" = "foot";
       "$browser" = "chromium";
       "$fileManager" = "nautilus";
-      "$ags" = "ags request";
 
       env = [
         "XCURSOR_THEME,phinger-cursors-dark"
@@ -23,15 +26,15 @@ _: {
         "hyprpaper"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
-        "ags run"
+        "qs -c yusof"
       ];
 
       general = {
         gaps_in = 6;
         gaps_out = 12;
         border_size = 2;
-        "col.active_border" = "rgba(7c7f93ff) rgba(8caaeeff) 45deg";
-        "col.inactive_border" = "rgba(303446aa)";
+        "col.active_border" = palette.hypr.activeBorder;
+        "col.inactive_border" = palette.hypr.inactiveBorder;
         layout = "dwindle";
         resize_on_border = true;
         allow_tearing = false;
@@ -52,7 +55,7 @@ _: {
           enabled = true;
           range = 16;
           render_power = 3;
-          color = "rgba(00000055)";
+          color = palette.hypr.shadow;
         };
       };
 
@@ -83,7 +86,11 @@ _: {
         touchpad.natural_scroll = true;
       };
 
-      gestures.workspace_swipe = true;
+      # 0.49+ syntax: `gesture = <fingers>, <direction>, <action>`.
+      gesture = [
+        "3, horizontal, workspace"
+        "4, horizontal, workspace"
+      ];
 
       misc = {
         disable_hyprland_logo = true;
@@ -93,7 +100,8 @@ _: {
         enable_swallow = true;
       };
 
-      windowrulev2 = [
+      # `windowrulev2` was renamed to `windowrule` in 0.49+ (v1 was removed).
+      windowrule = [
         "float, class:^(org.gnome.Calculator)$"
         "float, class:^(nm-connection-editor)$"
         "float, class:^(pavucontrol)$"
@@ -101,23 +109,30 @@ _: {
         "pin, title:^(Picture-in-Picture)$"
       ];
 
-      layerrule = [
-        "blur, ^(ags-.*)$"
-        "ignorezero, ^(ags-.*)$"
-        "blur, ^(rofi)$"
-      ];
-
       bind = [
+        # Apps.
         "$mod, Return, exec, $term"
+        "$mod, E, exec, $fileManager"
+        "$mod SHIFT, B, exec, $browser"
+        "$mod, L, exec, hyprlock"
+
+        # Quickshell panels (must match GlobalShortcut names in
+        # quickshell/config/shortcuts/Shortcuts.qml).
+        "$mod, R,           global, quickshell:launcher"
+        "$mod, slash,       global, quickshell:cheatsheet"
+        "$mod, Escape,      global, quickshell:powerMenu"
+        "$mod, Tab,         global, quickshell:overview"
+        "$mod, A,           global, quickshell:sidebar"
+        "$mod, V,           global, quickshell:clipboard"
+        "$mod, period,      global, quickshell:emoji"
+        "$mod, B,           global, quickshell:bluetooth"
+        "$mod SHIFT, S,     global, quickshell:screenshot"
+        "$mod SHIFT, C,     global, quickshell:colorPicker"
+
+        # Window mgmt.
         "$mod, Q, killactive,"
         "$mod SHIFT, E, exit,"
-        "$mod, E, exec, $fileManager"
-        "$mod, B, exec, $browser"
         "$mod, F, fullscreen,"
-        ''$mod, V, exec, $ags "toggle clipboard"''
-        ''$mod, period, exec, $ags "toggle emoji"''
-        ''$mod SHIFT, S, exec, $ags "toggle screenshot"''
-        "$mod, L, exec, hyprlock"
         "$mod, P, pseudo,"
         "$mod, J, togglesplit,"
         "$mod, Space, togglefloating,"

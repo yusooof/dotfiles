@@ -1,0 +1,5 @@
+module services
+singleton Theme 1.0 Theme.qml
+singleton Visibilities 1.0 Visibilities.qml
+singleton Keybinds 1.0 Keybinds.qml
+singleton Cliphist 1.0 Cliphist.qml

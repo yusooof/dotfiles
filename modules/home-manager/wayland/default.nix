@@ -3,6 +3,7 @@ _: {
     ./hyprland.nix
     ./foot.nix
     ./services.nix
-    ./ags
+    ./quickshell
+    ./ags # disabled; kept around as reference
   ];
 }

@@ -23,6 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Kept (disabled in HM) for now while we migrate to Quickshell.
     astal = {
       url = "github:aylur/astal";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,6 +31,11 @@
 
     ags = {
       url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };

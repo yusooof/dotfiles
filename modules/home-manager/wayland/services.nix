@@ -1,5 +1,7 @@
 { pkgs, ... }:
-
+let
+  palette = import ./palette.nix;
+in
 {
   home.packages = with pkgs; [
     grim
@@ -65,9 +67,9 @@
           outline_thickness = 2;
           dots_size = 0.25;
           dots_spacing = 0.4;
-          inner_color = "rgba(30, 30, 46, 0.85)";
-          outer_color = "rgba(140, 170, 238, 0.7)";
-          font_color = "rgba(205, 214, 244, 1.0)";
+          inner_color = palette.hyprlock.inputInner;
+          outer_color = palette.hyprlock.inputOuter;
+          font_color = palette.hyprlock.fg;
           fade_on_empty = false;
           placeholder_text = "<i>password…</i>";
           rounding = 16;
@@ -78,7 +80,7 @@
       label = [
         {
           text = "cmd[update:1000] date +\"%H:%M\"";
-          color = "rgba(205, 214, 244, 1.0)";
+          color = palette.hyprlock.fg;
           font_size = 96;
           font_family = "Inter Bold";
           position = "0, 240";
@@ -87,7 +89,7 @@
         }
         {
           text = "cmd[update:60000] date +\"%A, %B %-d\"";
-          color = "rgba(186, 194, 222, 1.0)";
+          color = palette.hyprlock.fgDim;
           font_size = 22;
           font_family = "Inter";
           position = "0, 160";
