@@ -1,0 +1,218 @@
+// Catppuccin-ish dark slate to mirror the GNOME slate accent.
+$bg: #1e1e2e;
+$bg-alt: #181825;
+$surface: #313244;
+$surface-hi: #45475a;
+$fg: #cdd6f4;
+$fg-dim: #a6adc8;
+$accent: #8caaee;
+$accent-hi: #b4befe;
+$border: rgba(255, 255, 255, 0.06);
+$shadow: rgba(0, 0, 0, 0.45);
+
+* {
+  font-family: "Inter", "Inter Variable", "JetBrains Mono", system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  -gtk-icon-style: symbolic;
+}
+
+window {
+  background: transparent;
+  color: $fg;
+}
+
+// ──── Bar ──────────────────────────────────────────────────────────────────
+window.Bar {
+  background: transparent;
+
+  .BarInner {
+    background: rgba(30, 30, 46, 0.78);
+    border: 1px solid $border;
+    border-radius: 14px;
+    margin: 8px 12px 0 12px;
+    padding: 4px 10px;
+    box-shadow: 0 6px 18px $shadow;
+    min-height: 36px;
+  }
+
+  label { color: $fg; }
+  .dim { color: $fg-dim; font-size: 11px; }
+
+  button {
+    background: transparent;
+    color: $fg;
+    border: none;
+    border-radius: 8px;
+    padding: 4px 8px;
+    margin: 2px;
+    transition: background 120ms ease, color 120ms ease;
+    min-height: 0;
+    min-width: 0;
+  }
+
+  button:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  button:active {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  // Workspaces
+  .Workspaces button {
+    padding: 2px 9px;
+    color: $fg-dim;
+    font-weight: 600;
+    min-width: 22px;
+  }
+  .Workspaces button.active {
+    background: $accent;
+    color: $bg;
+  }
+  .Workspaces button:hover {
+    color: $fg;
+  }
+
+  .ActiveWindow label {
+    color: $fg-dim;
+    font-style: italic;
+    margin-left: 6px;
+  }
+
+  .Clock {
+    font-weight: 600;
+    padding: 0 6px;
+  }
+
+  .Tray button {
+    padding: 2px 4px;
+  }
+
+  .Volume image,
+  .Network image,
+  .Mpris image {
+    -gtk-icon-size: 16px;
+  }
+}
+
+// ──── Popups (clipboard / emoji / screenshot) ──────────────────────────────
+window.Popup {
+  background: transparent;
+
+  .PopupInner {
+    background: rgba(24, 24, 37, 0.92);
+    border: 1px solid $border;
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow: 0 12px 32px $shadow;
+  }
+
+  .PopupHeader {
+    padding: 4px 8px 8px 8px;
+
+    image { color: $accent; }
+  }
+
+  entry {
+    background: $surface;
+    color: $fg;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 8px 12px;
+    caret-color: $accent;
+  }
+  entry:focus {
+    border-color: $accent;
+    box-shadow: 0 0 0 1px rgba(140, 170, 238, 0.35);
+  }
+
+  scrollbar {
+    background: transparent;
+  }
+  scrollbar slider {
+    background: $surface-hi;
+    border-radius: 6px;
+    min-width: 6px;
+  }
+
+  button {
+    background: transparent;
+    color: $fg;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+  button:hover {
+    background: rgba(140, 170, 238, 0.12);
+  }
+  button:active {
+    background: rgba(140, 170, 238, 0.22);
+  }
+  .iconbtn {
+    padding: 4px;
+  }
+}
+
+// ──── Clipboard ────────────────────────────────────────────────────────────
+.Clipboard .ClipItem {
+  padding: 8px 10px;
+}
+.Clipboard .ClipItem label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+}
+
+// ──── Emoji ────────────────────────────────────────────────────────────────
+.Emoji .EmojiGrid {
+  padding: 4px;
+}
+.Emoji .EmojiBtn {
+  padding: 6px;
+  min-width: 38px;
+  min-height: 38px;
+}
+.Emoji .emoji {
+  font-family: "Noto Color Emoji", "Inter", sans-serif;
+  font-size: 22px;
+}
+
+// ──── Screenshot ───────────────────────────────────────────────────────────
+.Screenshot .ShotGrid {
+  padding: 4px 0;
+}
+.Screenshot .ShotItem {
+  padding: 12px 14px;
+}
+.Screenshot .ShotItem image {
+  color: $accent;
+}
+
+// ──── Popovers (calendar, mpris, etc) ──────────────────────────────────────
+popover > arrow,
+popover > contents {
+  background: rgba(24, 24, 37, 0.96);
+  color: $fg;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 8px 24px $shadow;
+}
+
+// ──── Sliders ──────────────────────────────────────────────────────────────
+slider trough {
+  background: $surface;
+  border-radius: 6px;
+  min-height: 6px;
+}
+slider highlight,
+slider fill {
+  background: $accent;
+  border-radius: 6px;
+}
+slider slider {
+  background: $fg;
+  border-radius: 50%;
+  min-width: 12px;
+  min-height: 12px;
+}
