@@ -24,9 +24,9 @@ in
 
       exec-once = [
         "hyprpaper"
+        "qs"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
-        "qs -c yusof"
       ];
 
       general = {
@@ -100,39 +100,24 @@ in
         enable_swallow = true;
       };
 
-      # `windowrulev2` was renamed to `windowrule` in 0.49+ (v1 was removed).
+      # `windowrule` syntax updated for 0.54+
       windowrule = [
-        "float, class:^(org.gnome.Calculator)$"
-        "float, class:^(nm-connection-editor)$"
-        "float, class:^(pavucontrol)$"
-        "float, title:^(Picture-in-Picture)$"
-        "pin, title:^(Picture-in-Picture)$"
+        "float 1, match:class ^(org.gnome.Calculator)$"
+        "float 1, match:class ^(nm-connection-editor)$"
+        "float 1, match:class ^(pavucontrol)$"
+        "float 1, match:title ^(Picture-in-Picture)$"
+        "pin 1, match:title ^(Picture-in-Picture)$"
       ];
 
+
       bind = [
-        # Apps.
         "$mod, Return, exec, $term"
-        "$mod, E, exec, $fileManager"
-        "$mod SHIFT, B, exec, $browser"
-        "$mod, L, exec, hyprlock"
-
-        # Quickshell panels (must match GlobalShortcut names in
-        # quickshell/config/shortcuts/Shortcuts.qml).
-        "$mod, R,           global, quickshell:launcher"
-        "$mod, slash,       global, quickshell:cheatsheet"
-        "$mod, Escape,      global, quickshell:powerMenu"
-        "$mod, Tab,         global, quickshell:overview"
-        "$mod, A,           global, quickshell:sidebar"
-        "$mod, V,           global, quickshell:clipboard"
-        "$mod, period,      global, quickshell:emoji"
-        "$mod, B,           global, quickshell:bluetooth"
-        "$mod SHIFT, S,     global, quickshell:screenshot"
-        "$mod SHIFT, C,     global, quickshell:colorPicker"
-
-        # Window mgmt.
         "$mod, Q, killactive,"
         "$mod SHIFT, E, exit,"
+        "$mod, E, exec, $fileManager"
+        "$mod, B, exec, $browser"
         "$mod, F, fullscreen,"
+        "$mod, L, exec, hyprlock"
         "$mod, P, pseudo,"
         "$mod, J, togglesplit,"
         "$mod, Space, togglefloating,"

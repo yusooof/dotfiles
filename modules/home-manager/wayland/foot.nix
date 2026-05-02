@@ -20,7 +20,7 @@ _: {
         multiplier = 3.0;
       };
 
-      colors = {
+      colors-dark = {
         alpha = 0.95;
         background = "1e1e2e";
         foreground = "cdd6f4";

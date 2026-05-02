@@ -15,10 +15,10 @@ in
     pkgs.hyprpicker
   ];
 
-  # Symlink the whole config tree to ~/.config/quickshell/yusof. `qs` will
+  # Symlink the whole config tree to ~/.config/quickshell/default. `qs` will
   # auto-pick `shell.qml` as the entry point. To run another config in
   # parallel, copy this dir under a different name.
-  xdg.configFile."quickshell/yusof" = {
+  xdg.configFile."quickshell/default" = {
     source = ./config;
     recursive = true;
   };

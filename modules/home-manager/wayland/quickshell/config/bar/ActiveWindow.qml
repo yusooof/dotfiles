@@ -1,7 +1,7 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell.Hyprland
 import "../services" as S
-
 Text {
     readonly property var client: Hyprland.activeToplevel
     text: client?.title ?? ""
