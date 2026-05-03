@@ -8,13 +8,15 @@ import AstalTray from "gi://AstalTray"
 import { For, createBinding, onCleanup } from "ags"
 import { createPoll } from "ags/time"
 
-function Workspaces() {
+function Workspaces({ connector }: { connector: string }) {
   const hypr = AstalHyprland.get_default()
   const workspaces = createBinding(hypr, "workspaces")
   const focused = createBinding(hypr, "focusedWorkspace")
 
   const visible = (ws: Array<AstalHyprland.Workspace>) =>
-    ws.filter((w) => w.id > 0).sort((a, b) => a.id - b.id)
+    ws
+      .filter((w) => w.id > 0 && w.monitor?.name === connector)
+      .sort((a, b) => a.id - b.id)
 
   const attachScroll = (self: Gtk.Widget) => {
     const ctrl = new Gtk.EventControllerScroll({
@@ -148,7 +150,7 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
     >
       <centerbox cssClasses={["BarInner"]}>
         <box $type="start" spacing={8}>
-          <Workspaces />
+          <Workspaces connector={gdkmonitor.connector} />
         </box>
 
         <box $type="center">
