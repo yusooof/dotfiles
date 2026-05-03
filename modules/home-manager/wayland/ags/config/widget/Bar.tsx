@@ -10,7 +10,7 @@ import { createPoll } from "ags/time"
 
 const MONITOR_WORKSPACES: Record<string, number[]> = {
   "DP-3": [1, 2, 3, 4, 5],
-  "DP-1": [6, 7, 8, 9, 10],
+  "DP-1": [6],
 }
 
 function Workspaces({ connector }: { connector: string }) {
