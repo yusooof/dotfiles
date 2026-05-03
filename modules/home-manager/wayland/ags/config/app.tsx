@@ -4,14 +4,16 @@ import style from "./style.scss"
 import Bar from "./widget/Bar"
 import Clipboard from "./widget/Clipboard"
 import EmojiPicker from "./widget/EmojiPicker"
-import Screenshot from "./widget/Screenshot"
+import Launcher from "./widget/Launcher"
+import Settings from "./widget/Settings"
+import { NotificationCenter, NotificationToasts } from "./widget/Notifications"
 
 app.start({
   css: style,
   gtkTheme: "Adwaita-dark",
 
-  requestHandler(request, res) {
-    const parts = request.trim().split(/\s+/)
+  requestHandler(argv, res) {
+    const parts = argv.join(" ").trim().split(/\s+/)
     const [cmd, ...args] = parts
 
     if (cmd === "toggle" && args[0]) {
@@ -23,33 +25,18 @@ app.start({
       return res(`no window: ${args[0]}`)
     }
 
-    if (cmd === "show" && args[0]) {
-      const win = app.get_window(args[0])
-      if (win) {
-        win.visible = true
-        return res("ok")
-      }
-      return res(`no window: ${args[0]}`)
-    }
-
-    if (cmd === "hide" && args[0]) {
-      const win = app.get_window(args[0])
-      if (win) {
-        win.visible = false
-        return res("ok")
-      }
-      return res(`no window: ${args[0]}`)
-    }
-
     res("unknown command")
   },
 
   main() {
     const monitors = createBinding(app, "monitors")
 
+    Launcher()
     Clipboard()
     EmojiPicker()
-    Screenshot()
+    Settings()
+    NotificationCenter()
+    NotificationToasts()
 
     return (
       <For each={monitors}>

@@ -1,6 +1,6 @@
 _: {
   programs.foot = {
-    enable = true;
+    enable = false;
     settings = {
       main = {
         font = "JetBrains Mono:size=13";

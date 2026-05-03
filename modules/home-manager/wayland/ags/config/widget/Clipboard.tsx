@@ -3,6 +3,7 @@ import Astal from "gi://Astal?version=4.0"
 import Gtk from "gi://Gtk?version=4.0"
 import { createState, For, onCleanup } from "ags"
 import { execAsync } from "ags/process"
+import { closeOnUnfocus } from "./autoClose"
 
 interface Entry {
   id: string
@@ -80,6 +81,7 @@ export default function Clipboard() {
     <window
       $={(self) => {
         win = self
+        closeOnUnfocus(self)
         self.connect("notify::visible", () => {
           if (self.visible) {
             reload()

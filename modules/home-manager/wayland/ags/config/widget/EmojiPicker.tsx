@@ -4,6 +4,7 @@ import Gtk from "gi://Gtk?version=4.0"
 import { createState, For, onCleanup } from "ags"
 import { execAsync } from "ags/process"
 import EMOJIS from "./emoji-data"
+import { closeOnUnfocus } from "./autoClose"
 
 async function copy(text: string) {
   try {
@@ -41,6 +42,7 @@ export default function EmojiPicker() {
     <window
       $={(self) => {
         win = self
+        closeOnUnfocus(self)
         self.connect("notify::visible", () => {
           if (self.visible) {
             setQuery("")

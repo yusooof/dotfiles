@@ -9,6 +9,7 @@ _:
     ./shell.nix
     ./apps
     ./wayland
+    ./terminals
   ];
 
   home = {

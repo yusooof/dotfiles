@@ -6,15 +6,16 @@ in
   home.packages = with pkgs; [
     grim
     slurp
-    swappy
     wl-clipboard
     cliphist
     brightnessctl
     playerctl
     libnotify
-    hyprpicker
-    hyprshot
+    networkmanagerapplet # nm-connection-editor for advanced WiFi from settings
   ];
+
+  # `~/.background-image` is already managed by ./gnome/dconf.nix as an
+  # out-of-store symlink — hyprlock picks it up from there.
 
   services.hypridle = {
     enable = true;
@@ -100,10 +101,15 @@ in
     };
   };
 
-  xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = ${../../../assets/wallpaper.png}
-    wallpaper = ,${../../../assets/wallpaper.png}
-    splash = false
-    ipc = off
-  '';
+  # Wallpaper. Managed as a systemd user service so we don't have to babysit
+  # it from hyprland's exec-once.
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      splash = false;
+      ipc = "off";
+      preload = [ "${../../../assets/wallpaper.png}" ];
+      wallpaper = [ ",${../../../assets/wallpaper.png}" ];
+    };
+  };
 }

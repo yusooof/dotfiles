@@ -11,7 +11,8 @@ in
       monitor = [ ",preferred,auto,1" ];
 
       "$mod" = "SUPER";
-      "$term" = "foot";
+      "$launch" = "ALT";
+      "$term" = "alacritty";
       "$browser" = "chromium";
       "$fileManager" = "nautilus";
 
@@ -23,8 +24,6 @@ in
       ];
 
       exec-once = [
-        "hyprpaper"
-        "qs"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
       ];
@@ -37,6 +36,8 @@ in
         "col.inactive_border" = palette.hypr.inactiveBorder;
         layout = "dwindle";
         resize_on_border = true;
+        extend_border_grab_area = 12;
+        hover_icon_on_border = true;
         allow_tearing = false;
       };
 
@@ -62,15 +63,23 @@ in
       animations = {
         enabled = true;
         bezier = [
-          "smooth, 0.25, 0.46, 0.45, 0.94"
-          "snappy, 0.2, 0.9, 0.1, 1.05"
+          "smooth,    0.25, 0.46, 0.45, 0.94"
+          "snappy,    0.20, 0.90, 0.10, 1.05"
+          "wind,      0.16, 1.00, 0.30, 1.00"
+          "winIn,     0.05, 0.90, 0.10, 1.05"
+          "winOut,    0.45, 0.00, 0.55, 1.00"
+          "overshot,  0.13, 0.99, 0.29, 1.10"
         ];
         animation = [
-          "windows, 1, 4, snappy"
-          "windowsOut, 1, 4, smooth, popin 80%"
-          "border, 1, 8, default"
-          "fade, 1, 6, smooth"
-          "workspaces, 1, 5, smooth, slide"
+          "windows,         1, 3, winIn,    popin 92%"
+          "windowsOut,      1, 3, winOut,   popin 92%"
+          "windowsMove,     1, 4, wind"
+          "border,          1, 8, default"
+          "borderangle,     1, 50, default, loop"
+          "fade,            1, 4, smooth"
+          "workspaces,      1, 3, overshot, slidefade 15%"
+          "specialWorkspace,1, 3, overshot, slidefadevert 15%"
+          "layers,          1, 3, smooth,   popin 95%"
         ];
       };
 
@@ -86,7 +95,6 @@ in
         touchpad.natural_scroll = true;
       };
 
-      # 0.49+ syntax: `gesture = <fingers>, <direction>, <action>`.
       gesture = [
         "3, horizontal, workspace"
         "4, horizontal, workspace"
@@ -100,7 +108,14 @@ in
         enable_swallow = true;
       };
 
-      # `windowrule` syntax updated for 0.54+
+      workspace = [
+        "1, persistent:true, default:true"
+        "2, persistent:true"
+        "3, persistent:true"
+        "4, persistent:true"
+        "5, persistent:true"
+      ];
+
       windowrule = [
         "float 1, match:class ^(org.gnome.Calculator)$"
         "float 1, match:class ^(nm-connection-editor)$"
@@ -109,28 +124,42 @@ in
         "pin 1, match:title ^(Picture-in-Picture)$"
       ];
 
-
       bind = [
-        "$mod, Return, exec, $term"
+        "$launch, T, exec, $term"
         "$mod, Q, killactive,"
         "$mod SHIFT, E, exit,"
-        "$mod, E, exec, $fileManager"
-        "$mod, B, exec, $browser"
+        "$launch, E, exec, $fileManager"
+        "$launch, B, exec, $browser"
         "$mod, F, fullscreen,"
         "$mod, L, exec, hyprlock"
         "$mod, P, pseudo,"
         "$mod, J, togglesplit,"
         "$mod, Space, togglefloating,"
 
-        "$mod, h, movefocus, l"
-        "$mod, l, movefocus, r"
-        "$mod, k, movefocus, u"
-        "$mod, j, movefocus, d"
+        "$mod, left, movefocus, l"
+        "$mod, right, movefocus, r"
+        "$mod, up, movefocus, u"
+        "$mod, down, movefocus, d"
 
         "$mod SHIFT, h, movewindow, l"
         "$mod SHIFT, l, movewindow, r"
         "$mod SHIFT, k, movewindow, u"
         "$mod SHIFT, j, movewindow, d"
+
+        "$mod CTRL, h, resizeactive, -40 0"
+        "$mod CTRL, l, resizeactive,  40 0"
+        "$mod CTRL, k, resizeactive,  0 -40"
+        "$mod CTRL, j, resizeactive,  0  40"
+
+        "$mod SHIFT, C, centerwindow,"
+
+        "$mod SHIFT, a, movetoworkspace, e-1"
+        "$mod SHIFT, d, movetoworkspace, e+1"
+
+        "$mod, S, exec, ags request toggle settings"
+        "$mod, N, exec, ags request toggle notification-center"
+        "$mod, V, exec, ags request toggle clipboard"
+        "$mod, period, exec, ags request toggle emoji"
 
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"
@@ -159,6 +188,10 @@ in
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"
+      ];
+
+      bindr = [
+        "SUPER, SUPER_L, exec, ags request toggle launcher"
       ];
 
       bindel = [
