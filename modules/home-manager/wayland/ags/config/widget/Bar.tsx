@@ -8,15 +8,16 @@ import AstalTray from "gi://AstalTray"
 import { For, createBinding, onCleanup } from "ags"
 import { createPoll } from "ags/time"
 
+const MONITOR_WORKSPACES: Record<string, number[]> = {
+  "DP-3": [1, 2, 3, 4, 5],
+  "DP-1": [6, 7, 8, 9, 10],
+}
+
 function Workspaces({ connector }: { connector: string }) {
   const hypr = AstalHyprland.get_default()
+  const ids = MONITOR_WORKSPACES[connector] ?? [1, 2, 3, 4, 5]
   const workspaces = createBinding(hypr, "workspaces")
   const focused = createBinding(hypr, "focusedWorkspace")
-
-  const visible = (ws: Array<AstalHyprland.Workspace>) =>
-    ws
-      .filter((w) => w.id > 0 && w.monitor?.name === connector)
-      .sort((a, b) => a.id - b.id)
 
   const attachScroll = (self: Gtk.Widget) => {
     const ctrl = new Gtk.EventControllerScroll({
@@ -31,18 +32,20 @@ function Workspaces({ connector }: { connector: string }) {
 
   return (
     <box class="Workspaces" spacing={6} $={attachScroll}>
-      <For each={workspaces(visible)}>
-        {(ws) => (
-          <button
-            class={focused((f) => (f?.id === ws.id ? "ws active" : "ws"))}
-            onClicked={() => ws.focus()}
-            tooltipText={`Workspace ${ws.id}`}
-            canFocus={false}
-          >
-            <box class="pill" />
-          </button>
-        )}
-      </For>
+      {ids.map((id) => (
+        <button
+          class={focused((f) => (f?.id === id ? "ws active" : "ws"))}
+          visible={workspaces((all) => {
+            const ws = all.find((w) => w.id === id)
+            return ws !== undefined
+          })}
+          onClicked={() => hypr.dispatch("workspace", String(id))}
+          tooltipText={`Workspace ${id}`}
+          canFocus={false}
+        >
+          <box class="pill" />
+        </button>
+      ))}
     </box>
   )
 }
