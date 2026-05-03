@@ -15,7 +15,7 @@
     enable = true;
     settings = {
       user = {
-        name = "idkysf";
+        name = "uproot";
         email = "823480+uproot@users.noreply.github.com";
       };
       init.defaultBranch = "main";
