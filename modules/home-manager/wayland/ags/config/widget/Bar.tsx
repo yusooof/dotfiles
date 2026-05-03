@@ -5,6 +5,8 @@ import Gtk from "gi://Gtk?version=4.0"
 import Gdk from "gi://Gdk?version=4.0"
 import AstalHyprland from "gi://AstalHyprland"
 import AstalTray from "gi://AstalTray"
+import AstalNotifd from "gi://AstalNotifd"
+import AstalMpris from "gi://AstalMpris"
 import { For, createBinding, onCleanup } from "ags"
 import { createPoll } from "ags/time"
 
@@ -57,6 +59,8 @@ function Clock() {
   const date = createPoll("", 30_000, () =>
     GLib.DateTime.new_now_local().format("%a %b %-d")!,
   )
+  const notifd = AstalNotifd.get_default()
+  
   return (
     <button
       class="Clock"
@@ -82,6 +86,13 @@ function Clock() {
           class="time"
           valign={Gtk.Align.BASELINE_FILL}
           label={time}
+        />
+        <image
+          iconName={createBinding(notifd, "dontDisturb").as(dnd => 
+            dnd ? "notifications-disabled-symbolic" : "preferences-system-notifications-symbolic"
+          )}
+          valign={Gtk.Align.CENTER}
+          cssClasses={createBinding(notifd, "notifications").as(n => n.length > 0 && !notifd.dontDisturb ? ["active"] : [])}
         />
       </box>
     </button>
@@ -133,9 +144,59 @@ function SettingsButton() {
   )
 }
 
+function MediaCenter() {
+  const mpris = AstalMpris.get_default()
+  const players = createBinding(mpris, "players")
+
+  return (
+    <box class="MediaCenter" spacing={10}>
+      <For each={players}>
+        {(player) => (
+          <box 
+            visible={createBinding(player, "playbackStatus").as(s => s === AstalMpris.PlaybackStatus.PLAYING)}
+            spacing={8}
+          >
+            <box
+              class="cover"
+              valign={Gtk.Align.CENTER}
+              css={createBinding(player, "coverArt").as(art => 
+                art ? `background-image: url('${art}'); background-size: cover; background-position: center; min-width: 28px; min-height: 28px; border-radius: 6px;` 
+                    : `background-color: rgba(255,255,255,0.05); min-width: 28px; min-height: 28px; border-radius: 6px;`
+              )}
+            />
+            <box orientation={Gtk.Orientation.VERTICAL} valign={Gtk.Align.CENTER} spacing={0}>
+              <label
+                class="title"
+                ellipsize={3}
+                maxWidthChars={30}
+                xalign={0}
+                css="font-weight: 600; font-size: 13px;"
+                label={createBinding(player, "title").as(t => t || "Unknown")}
+              />
+              <label
+                class="artist dim"
+                ellipsize={3}
+                maxWidthChars={30}
+                xalign={0}
+                css="font-size: 11px;"
+                label={createBinding(player, "artist").as(t => t || "")}
+                visible={createBinding(player, "artist").as(t => !!t)}
+              />
+            </box>
+          </box>
+        )}
+      </For>
+    </box>
+  )
+}
+
 export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
   let win: Astal.Window
   const { TOP, LEFT, RIGHT } = Astal.WindowAnchor
+  const mpris = AstalMpris.get_default()
+  const isPlaying = createPoll(false, 1000, () => {
+    return mpris.get_players().some(p => p.playbackStatus === AstalMpris.PlaybackStatus.PLAYING)
+  })
 
   onCleanup(() => win?.destroy())
 
@@ -154,10 +215,18 @@ export default function Bar({ gdkmonitor }: { gdkmonitor: Gdk.Monitor }) {
       <centerbox cssClasses={["BarInner"]}>
         <box $type="start" spacing={8}>
           <Workspaces connector={gdkmonitor.connector} />
+          <box visible={isPlaying}>
+            <Clock />
+          </box>
         </box>
 
         <box $type="center">
-          <Clock />
+          <box visible={isPlaying((p) => !p)}>
+            <Clock />
+          </box>
+          <box visible={isPlaying}>
+            <MediaCenter />
+          </box>
         </box>
 
         <box $type="end" spacing={6}>

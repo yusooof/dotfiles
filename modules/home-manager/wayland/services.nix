@@ -6,13 +6,20 @@ in
   home.packages = with pkgs; [
     grim
     slurp
+    satty
     wl-clipboard
     cliphist
     brightnessctl
     playerctl
     libnotify
+    libsecret        # D-Bus client lib for gnome-keyring
+    seahorse         # GUI keyring manager
     networkmanagerapplet # nm-connection-editor for advanced WiFi from settings
+    swww             # Wayland wallpaper daemon
   ];
+
+  # Ensure screenshot output directory exists
+  home.file."Pictures/Screenshots/.keep".text = "";
 
 
   services.hypridle = {
@@ -99,15 +106,5 @@ in
     };
   };
 
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      splash = false;
-      preload = [ "${../../../assets/wallpaper.png}" ];
-      wallpaper = [
-        "DP-1,${../../../assets/wallpaper.png}"
-        "DP-3,${../../../assets/wallpaper.png}"
-      ];
-    };
-  };
+
 }

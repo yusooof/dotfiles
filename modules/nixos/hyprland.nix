@@ -15,7 +15,13 @@
     ];
   };
 
-  security.polkit.enable = true;
+  security = {
+    polkit.enable = true;
+
+    # Auto-unlock gnome-keyring on login via PAM
+    pam.services.gdm.enableGnomeKeyring = true;
+    pam.services.hyprlock.enableGnomeKeyring = true;
+  };
 
   services.gnome.gnome-keyring.enable = true;
 

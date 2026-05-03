@@ -27,8 +27,13 @@ in
       ];
 
       exec-once = [
+        "gnome-keyring-daemon --start --components=secrets,ssh,pkcs11"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+
+        # Initialize Wallpaper Daemon
+        "swww-daemon"
+        "sleep 1 && swww img ~/dotfiles/assets/wallpaper.png --transition-type fade"
       ];
 
       general = {
@@ -157,8 +162,11 @@ in
 
         "$mod SHIFT, C, centerwindow,"
 
-        "$mod SHIFT, a, movetoworkspace, e-1"
-        "$mod SHIFT, d, movetoworkspace, e+1"
+        "$mod, a, workspace, m-1"
+        "$mod, d, workspace, m+1"
+
+        "$mod SHIFT, a, movetoworkspace, m-1"
+        "$mod SHIFT, d, movetoworkspace, m+1"
 
         "$mod, S, exec, ags request toggle settings"
         "$mod, N, exec, ags request toggle notification-center"
@@ -179,8 +187,12 @@ in
         "$mod SHIFT, 5, movetoworkspace, 5"
         "$mod SHIFT, 6, movetoworkspace, 6"
 
-        "$mod, mouse_down, workspace, e+1"
-        "$mod, mouse_up, workspace, e-1"
+        "$mod, mouse_down, workspace, m+1"
+        "$mod, mouse_up, workspace, m-1"
+
+        # Screenshots: Shift+Print → fullscreen, Super+Shift+S → quick region
+        ''SHIFT, Print, exec, sh -c 'grim - | wl-copy && notify-send -a "Screenshot" "Full screen" "Copied to clipboard"' ''
+        ''$mod SHIFT, S, exec, sh -c 'grim -g "$(slurp -d -c \#c8d2ffdd -b \#00000066 -s \#c8d2ff11)" - | wl-copy && notify-send -a "Screenshot" "Region" "Copied to clipboard"' ''
       ];
 
       bindm = [

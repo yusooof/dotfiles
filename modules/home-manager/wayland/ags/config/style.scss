@@ -462,3 +462,53 @@ slider slider:hover {
   image { color: $fg-faint; }
   .dim  { color: $fg-faint; font-size: 12px; }
 }
+
+/* ── Screenshot overlay ────────────────────────────────────── */
+
+.ScreenshotOverlay {
+  background: transparent;
+}
+
+.ScreenshotToolbar {
+  background: rgba(18, 18, 18, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6),
+              0 2px 8px rgba(0, 0, 0, 0.4),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.ss-btn {
+  background: transparent;
+  color: $fg;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  transition: background 160ms ease,
+              color 160ms ease;
+  min-height: 0;
+  min-width: 0;
+
+  image { -gtk-icon-size: 16px; color: $fg-dim; transition: color 160ms ease; }
+  label { font-weight: 600; font-size: 13px; }
+}
+.ss-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  image { color: $fg; }
+}
+.ss-btn:active {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ss-cancel:hover {
+  background: rgba(240, 98, 98, 0.16);
+  color: $danger;
+  image { color: $danger; }
+}
+
+.ss-sep {
+  min-width: 1px;
+  margin: 4px 2px;
+  background: rgba(255, 255, 255, 0.1);
+}

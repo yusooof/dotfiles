@@ -322,8 +322,12 @@ function QuickGrid() {
   }
   const screenshot = async () => {
     try {
-      await execAsync(["sh", "-c", "grim -g \"$(slurp)\" - | wl-copy"])
-      notify("Screenshot copied", "Region copied to clipboard")
+      // Close settings panel first so it's not captured
+      const settingsWin = app.get_window("settings")
+      if (settingsWin) settingsWin.visible = false
+      
+      const { triggerScreenshot } = await import("./Screenshot")
+      triggerScreenshot()
     } catch {}
   }
   return (
